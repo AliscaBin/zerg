@@ -7,8 +7,8 @@
  */
 
 namespace app\api\controller\v1;
-use app\api\validate\TestValidate;
-use think\Validate;
+use app\api\validate\IDMustBePositiveInt;
+use app\api\model\Banner as BannerModel;
 
 class Banner
 {
@@ -19,14 +19,17 @@ class Banner
      * @param $id banner id
      */
     public function getBanner($id){
-        //独立验证
-        $data = ['name' => "wangbin1111", 'email' => "wangbinqq.com"];
-//        $validate = new Validate(['name'=>"require|max:10",'email'=>"email"]);
-        $validate = new TestValidate();
-        $result = $validate->batch()->check($data);
-//        echo $validate->getError();
-        var_dump($validate->getError());
-        //验证器
-
+//        //独立验证
+////        $data = ['name' => "wangbin1111", 'email' => "wangbinqq.com"];
+//        $data = ['id' => $id];
+////        $validate = new Validate(['name'=>"require|max:10",'email'=>"email"]);
+//        $validate = new IDMustBePositiveInt();
+//        $result = $validate->batch()->check($data);
+////        echo $validate->getError();
+//        var_dump($validate->getError());
+//        //验证器
+        (new IDMustBePositiveInt())->goCheck();
+        $banner = BannerModel::getBannerById($id);
+        return $banner;
     }
 }
