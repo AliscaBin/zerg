@@ -18,6 +18,8 @@ class Banner
      * @url /banner/:id
      * @http GET
      * @param $id banner id
+     * @return 返回banners
+     * @throws BannerMissException
      */
     public function getBanner($id)
     {
